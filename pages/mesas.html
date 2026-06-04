@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesas - Restaurante</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🍽️ Restaurante</h1>
+        <div class="navbar-links">
+            <a href="mesas.html">Mesas</a>
+            <a href="productos.html">Productos</a>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="#" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Mesas del Restaurante</h2>
+
+        <div id="msg" class="hidden"></div>
+
+        <h3 style="margin-bottom:12px;">Estado de Mesas</h3>
+        <div id="mesas-grid" class="cards-grid"></div>
+
+        <h3 style="margin:24px 0 12px;">Reservas Activas</h3>
+        <div class="tabla-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Mesa</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Personas</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="reservas-tabla"></tbody>
+            </table>
+        </div>
+
+        <h3 style="margin:24px 0 12px;">Nueva Reserva</h3>
+        <div class="card" style="text-align:left; max-width:500px;">
+            <div class="form-group">
+                <label>Nombre Cliente</label>
+                <input type="text" id="nombre_cliente" placeholder="Nombre completo">
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" id="telefono_cliente" placeholder="Teléfono">
+            </div>
+            <div class="form-group">
+                <label>Cantidad de Personas</label>
+                <input type="number" id="cantidad_personas" min="1" placeholder="Número de personas">
+            </div>
+            <div class="form-group">
+                <label>Fecha</label>
+                <input type="date" id="fecha">
+            </div>
+            <div class="form-group">
+                <label>Hora</label>
+                <input type="time" id="hora">
+            </div>
+            <div class="form-group">
+                <label>Mesa</label>
+                <select id="mesa_id"></select>
+            </div>
+            <div class="form-group">
+                <label>Observaciones</label>
+                <input type="text" id="observaciones" placeholder="Opcional">
+            </div>
+            <button onclick="crearReserva()" class="btn-primary">Crear Reserva</button>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/mesas.js"></script>
+</body>
+</html>

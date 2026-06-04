@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Restaurante</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🍽️ Restaurante</h1>
+        <div class="navbar-links">
+            <a href="mesas.html">Mesas</a>
+            <a href="productos.html">Productos</a>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="#" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Productos del Restaurante</h2>
+
+        <div id="msg" class="hidden"></div>
+
+        <h3 style="margin-bottom:12px;">Categorías</h3>
+        <div id="categorias-grid" class="cards-grid"></div>
+
+        <h3 style="margin:24px 0 12px;">Lista de Productos</h3>
+        <div class="tabla-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Categoría</th>
+                        <th>Disponible</th>
+                    </tr>
+                </thead>
+                <tbody id="productos-tabla"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/productos.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos - Restaurante</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🍽️ Restaurante</h1>
+        <div class="navbar-links">
+            <a href="mesas.html">Mesas</a>
+            <a href="productos.html">Productos</a>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="#" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Pedidos</h2>
+
+        <div id="msg" class="hidden"></div>
+
+        <h3 style="margin-bottom:12px;">Pedidos Activos</h3>
+        <div class="tabla-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Mesa</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="pedidos-tabla"></tbody>
+            </table>
+        </div>
+
+        <h3 style="margin:24px 0 12px;">Nuevo Pedido</h3>
+        <div class="card" style="text-align:left; max-width:500px;">
+            <div class="form-group">
+                <label>Número de Mesa</label>
+                <input type="number" id="mesa_id" min="1" placeholder="ID de la mesa">
+            </div>
+            <div class="form-group">
+                <label>Productos</label>
+                <div id="productos-lista"></div>
+                <button onclick="agregarProducto()" class="btn-secondary" style="margin-top:8px;">
+                    + Agregar Producto
+                </button>
+            </div>
+            <button onclick="crearPedido()" class="btn-primary" style="margin-top:16px;">
+                Crear Pedido
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/pedidos.js"></script>
+</body>
+</html>
