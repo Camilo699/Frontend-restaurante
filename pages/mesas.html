@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+    <div class="fondo-animado" id="fondo"></div>
     <nav class="navbar">
-        <h1>🍽️ Restaurante</h1>
+        <h1>👵 El Sazón de la Abuela</h1>
         <div class="navbar-links">
             <a href="mesas.html">Mesas</a>
             <a href="productos.html">Productos</a>
@@ -80,5 +81,19 @@
 
     <script src="../js/auth.js"></script>
     <script src="../js/mesas.js"></script>
+
+    <script>
+    const emojis = ['🍲','🥘','🍽️','👵','🫕','🥗','🍷','🕯️','🌿','🫙','🥄','🔪'];
+    const fondo = document.getElementById('fondo');
+    for (let i = 0; i < 30; i++) {
+        const span = document.createElement('span');
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        span.style.animationDelay = (Math.random() * 10) + 's';
+        span.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+        fondo.appendChild(span);
+    }
+</script>
 </body>
 </html>
