@@ -4,6 +4,14 @@ const PRODUCTOS_URL_P = 'http://127.0.0.1:8003';
 let productosDisponibles = [];
 let contadorProductos = 0;
 
+function getHeaders() {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
     cargarPedidos();
@@ -13,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarProductosDisponibles() {
     try {
-        const response = await fetch(`${PRODUCTOS_URL_P}/productos`);
+        const response = await fetch(`${PRODUCTOS_URL_P}/productos`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         productosDisponibles = data.data;
     } catch (error) {
@@ -23,7 +33,9 @@ async function cargarProductosDisponibles() {
 
 async function cargarPedidos() {
     try {
-        const response = await fetch(`${PEDIDOS_URL}/pedidos`);
+        const response = await fetch(`${PEDIDOS_URL}/pedidos`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         const tabla = document.getElementById('pedidos-tabla');
 
@@ -69,11 +81,11 @@ function agregarProducto() {
 
     lista.innerHTML += `
         <div id="producto-${contadorProductos}" style="display:flex; gap:8px; margin-bottom:8px; align-items:center;">
-            <select id="select-${contadorProductos}" style="flex:2; padding:8px; border-radius:8px; border:1px solid #ddd;">
+            <select id="select-${contadorProductos}" style="flex:2; padding:8px; border-radius:4px; border:1px solid #2a2a2a; background:#0e0e0e; color:#d4d4d4;">
                 ${opciones}
             </select>
             <input type="number" id="cantidad-${contadorProductos}" value="1" min="1"
-                style="flex:1; padding:8px; border-radius:8px; border:1px solid #ddd;">
+                style="flex:1; padding:8px; border-radius:4px; border:1px solid #2a2a2a; background:#0e0e0e; color:#d4d4d4;">
             <button onclick="eliminarProducto(${contadorProductos})" class="btn-danger">✕</button>
         </div>
     `;
@@ -117,7 +129,7 @@ async function crearPedido() {
     try {
         const response = await fetch(`${PEDIDOS_URL}/pedidos`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify({ mesa_id: parseInt(mesa_id), productos })
         });
 
@@ -138,7 +150,7 @@ async function cambiarEstado(id, estado) {
     try {
         const response = await fetch(`${PEDIDOS_URL}/pedidos/${id}/estado`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify({ estado })
         });
 

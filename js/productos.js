@@ -1,5 +1,13 @@
 const PRODUCTOS_URL = 'http://127.0.0.1:8003';
 
+function getHeaders() {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
     cargarCategorias();
@@ -8,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarCategorias() {
     try {
-        const response = await fetch(`${PRODUCTOS_URL}/categorias`);
+        const response = await fetch(`${PRODUCTOS_URL}/categorias`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         const grid = document.getElementById('categorias-grid');
 
@@ -29,7 +39,9 @@ async function cargarCategorias() {
 
 async function cargarProductos() {
     try {
-        const response = await fetch(`${PRODUCTOS_URL}/productos`);
+        const response = await fetch(`${PRODUCTOS_URL}/productos`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         renderizarProductos(data.data);
     } catch (error) {
@@ -39,7 +51,9 @@ async function cargarProductos() {
 
 async function filtrarPorCategoria(id) {
     try {
-        const response = await fetch(`${PRODUCTOS_URL}/productos/categoria/${id}`);
+        const response = await fetch(`${PRODUCTOS_URL}/productos/categoria/${id}`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         renderizarProductos(data.data);
     } catch (error) {

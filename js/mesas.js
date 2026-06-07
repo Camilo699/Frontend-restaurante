@@ -1,5 +1,13 @@
 const RESERVAS_URL = 'http://127.0.0.1:8002';
 
+function getHeaders() {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
     cargarMesas();
@@ -8,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarMesas() {
     try {
-        const response = await fetch(`${RESERVAS_URL}/mesas`);
+        const response = await fetch(`${RESERVAS_URL}/mesas`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         const grid = document.getElementById('mesas-grid');
         const select = document.getElementById('mesa_id');
@@ -36,7 +46,9 @@ async function cargarMesas() {
 
 async function cargarReservas() {
     try {
-        const response = await fetch(`${RESERVAS_URL}/reservas`);
+        const response = await fetch(`${RESERVAS_URL}/reservas`, {
+            headers: getHeaders()
+        });
         const data = await response.json();
         const tabla = document.getElementById('reservas-tabla');
 
@@ -79,7 +91,7 @@ async function crearReserva() {
     try {
         const response = await fetch(`${RESERVAS_URL}/reservas`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
 
@@ -101,7 +113,7 @@ async function cancelarReserva(id) {
     try {
         const response = await fetch(`${RESERVAS_URL}/reservas/${id}/cancelar`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' }
+            headers: getHeaders()
         });
 
         const data = await response.json();
