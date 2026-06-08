@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - El Sazón de la Abuela</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="fondo-animado" id="fondo"></div>
+
+    <nav class="navbar">
+        <h1>👵 El Sazón de la Abuela</h1>
+        <div class="navbar-links">
+            <a href="mesas.html">Mesas</a>
+            <a href="productos.html">Productos</a>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="admin.html">Administración</a>
+            <a href="#" onclick="logout()">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Administración de Usuarios</h2>
+
+        <div id="msg" class="hidden"></div>
+
+        <h3 style="margin-bottom:12px; color:#b8964e;">Usuarios Registrados</h3>
+        <div class="tabla-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="usuarios-tabla"></tbody>
+            </table>
+        </div>
+
+        <h3 style="margin:24px 0 12px; color:#b8964e;">Nuevo Usuario</h3>
+        <div class="card" style="text-align:left; max-width:500px;">
+            <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" id="nombre" placeholder="Nombre completo">
+            </div>
+            <div class="form-group">
+                <label>Correo</label>
+                <input type="email" id="correo" placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" id="usuario" placeholder="Nombre de usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="contrasena" placeholder="Contraseña">
+            </div>
+            <div class="form-group">
+                <label>Rol</label>
+                <select id="rol">
+                    <option value="empleado">Empleado</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
+            <button onclick="crearUsuario()" class="btn-primary">Crear Usuario</button>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        const emojis = ['🍲','🥘','🍽️','👵','🫕','🥗','🍷','🕯️','🌿','🫙','🥄','🔪'];
+        const fondo = document.getElementById('fondo');
+        for (let i = 0; i < 30; i++) {
+            const span = document.createElement('span');
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            span.style.animationDelay = (Math.random() * 10) + 's';
+            span.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            fondo.appendChild(span);
+        }
+    </script>
+</body>
+</html>
