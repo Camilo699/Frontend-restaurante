@@ -66,3 +66,12 @@ function mostrarNavbarSegunRol() {
         }
     }
 }
+
+function mostrarBienvenida() {
+    const nombre = localStorage.getItem('nombre');
+    const rol = localStorage.getItem('rol');
+    const bienvenida = document.getElementById('bienvenida');
+    if (bienvenida && nombre) {
+        bienvenida.textContent = `Bienvenido, ${nombre} (${rol})`;
+    }
+}

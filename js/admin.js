@@ -11,6 +11,7 @@ function getHeaders() {
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
     verificarRolAdmin();
+    mostrarBienvenida();
     cargarUsuarios();
 });
 
