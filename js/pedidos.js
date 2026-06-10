@@ -43,29 +43,33 @@ async function cargarPedidos() {
 
         tabla.innerHTML = '';
 
-        data.data.forEach(pedido => {
-            tabla.innerHTML += `
-                <tr>
-                    <td>#${pedido.id}</td>
-                    <td>Mesa ${pedido.mesa_id}</td>
-                    <td>${pedido.fecha}</td>
-                    <td>${pedido.hora}</td>
-                    <td>$${Number(pedido.total).toLocaleString()}</td>
-                    <td>${pedido.estado}</td>
-                    <td>
-                        ${pedido.estado === 'pendiente'
-                            ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'en_preparacion')">Preparar</button>`
-                            : ''}
-                        ${pedido.estado === 'en_preparacion'
-                            ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'entregado')">Entregar</button>`
-                            : ''}
-                        ${pedido.estado === 'entregado'
-                            ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'pagado')">Pagado</button>`
-                            : ''}
-                    </td>
-                </tr>
-            `;
-        });
+data.data.forEach(pedido => {
+    tabla.innerHTML += `
+        <tr>
+            <td>#${pedido.id}</td>
+            <td>Mesa ${pedido.mesa_id}</td>
+            <td>${pedido.fecha}</td>
+            <td>${pedido.hora}</td>
+            <td>$${Number(pedido.total).toLocaleString()}</td>
+            <td>${pedido.estado}</td>
+            <td>
+                ${pedido.estado === 'pendiente'
+                    ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'en_preparacion')">Preparar</button>`
+                    : ''}
+                ${pedido.estado === 'en_preparacion'
+                    ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'entregado')">Entregar</button>`
+                    : ''}
+                ${pedido.estado === 'entregado'
+                    ? `<button class="btn-secondary" onclick="cambiarEstado(${pedido.id}, 'pagado')">Pagado</button>`
+                    : ''}
+                ${pedido.estado === 'pagado' || pedido.estado === 'cancelado'
+                    ? `<button class="btn-danger" onclick="eliminarPedido(${pedido.id})">Eliminar</button>`
+                    : ''}
+            </td>
+        </tr>
+    `;
+});
+
     } catch (error) {
         mostrarMsg('Error al cargar pedidos', 'error');
     }
@@ -172,4 +176,26 @@ function mostrarMsg(texto, tipo) {
     msg.textContent = texto;
     msg.className = tipo === 'error' ? 'error-msg' : 'success-msg';
     setTimeout(() => { msg.className = 'hidden'; }, 3000);
+}
+
+async function eliminarPedido(id) {
+    if (!confirm('¿Estás seguro de eliminar este pedido?')) return;
+
+    try {
+        const response = await fetch(`${PEDIDOS_URL}/pedidos/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+            mostrarMsg('Pedido eliminado correctamente', 'success');
+            cargarPedidos();
+        } else {
+            mostrarMsg(data.mensaje, 'error');
+        }
+    } catch (error) {
+        mostrarMsg('Error al eliminar pedido', 'error');
+    }
 }

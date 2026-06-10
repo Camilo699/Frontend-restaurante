@@ -69,7 +69,10 @@ async function cargarReservas() {
                     <td>
                         ${reserva.estado === 'pendiente' || reserva.estado === 'confirmada'
                             ? `<button class="btn-danger" onclick="cancelarReserva(${reserva.id})">Cancelar</button>`
-                            : '-'}
+                            : ''}
+                        ${reserva.estado === 'cancelada' || reserva.estado === 'finalizada'
+                            ? `<button class="btn-danger" onclick="eliminarReserva(${reserva.id})">Eliminar</button>`
+                            : ''}
                     </td>
                 </tr>
             `;
@@ -127,6 +130,29 @@ async function cancelarReserva(id) {
         }
     } catch (error) {
         mostrarMsg('Error al cancelar reserva', 'error');
+    }
+}
+
+async function eliminarReserva(id) {
+    if (!confirm('¿Estás seguro de eliminar esta reserva?')) return;
+
+    try {
+        const response = await fetch(`${RESERVAS_URL}/reservas/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+            mostrarMsg('Reserva eliminada correctamente', 'success');
+            cargarMesas();
+            cargarReservas();
+        } else {
+            mostrarMsg(data.mensaje, 'error');
+        }
+    } catch (error) {
+        mostrarMsg('Error al eliminar reserva', 'error');
     }
 }
 
