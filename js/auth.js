@@ -54,3 +54,15 @@ function verificarSesion() {
         window.location.href = 'login.html';
     }
 }
+
+function mostrarNavbarSegunRol() {
+    const rol = localStorage.getItem('rol');
+    const linkAdmin = document.getElementById('link-admin');
+    if (linkAdmin) {
+        if (rol === 'administrador') {
+            linkAdmin.style.display = 'inline';
+        } else {
+            linkAdmin.style.display = 'none';
+        }
+    }
+}

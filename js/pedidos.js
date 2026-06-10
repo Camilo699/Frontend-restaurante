@@ -14,6 +14,7 @@ function getHeaders() {
 
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
+    mostrarNavbarSegunRol();
     cargarPedidos();
     cargarProductosDisponibles();
     agregarProducto();

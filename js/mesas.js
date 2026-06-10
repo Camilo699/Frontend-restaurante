@@ -10,6 +10,7 @@ function getHeaders() {
 
 document.addEventListener('DOMContentLoaded', () => {
     verificarSesion();
+    mostrarNavbarSegunRol();
     cargarMesas();
     cargarReservas();
 });
